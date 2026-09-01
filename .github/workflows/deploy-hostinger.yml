@@ -1,0 +1,26 @@
+name: Deploy global nginx
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Deploy global nginx to Hostinger
+        uses: hostinger/deploy-on-vps@v2
+        with:
+          api-key: ${{ secrets.HOSTINGER_API_KEY }}
+          virtual-machine: ${{ vars.HOSTINGER_VM_ID }}
+          project-name: proxy
+          docker-compose-path: docker-compose.yml
+          environment-variables: |
+            ACME_EMAIL=${{ secrets.ACME_EMAIL }}
+            SITES=lota
+            LOTA_DOMAIN=${{ vars.LOTA_DOMAIN || 'lota.bowang.tech' }}
+            LOTA_ALIASES=${{ vars.LOTA_ALIASES }}
+            LOTA_UPSTREAM=lota-web:8080

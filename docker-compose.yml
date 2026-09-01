@@ -1,0 +1,28 @@
+services:
+  nginx:
+    build:
+      context: .
+    container_name: global-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      ACME_EMAIL: ${ACME_EMAIL:-}
+      SITES: ${SITES:-lota}
+      LOTA_DOMAIN: ${LOTA_DOMAIN:-lota.bowang.tech}
+      LOTA_ALIASES: ${LOTA_ALIASES:-}
+      LOTA_UPSTREAM: ${LOTA_UPSTREAM:-lota-web:8080}
+    volumes:
+      - certbot_www:/var/www/certbot
+      - certbot_certs:/etc/letsencrypt
+    networks:
+      - proxy
+
+volumes:
+  certbot_www:
+  certbot_certs:
+
+networks:
+  proxy:
+    name: proxy
