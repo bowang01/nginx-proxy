@@ -9,10 +9,15 @@ services:
       - "443:443"
     environment:
       ACME_EMAIL: ${ACME_EMAIL:-}
-      SITES: ${SITES:-lota}
+      SITES: ${SITES:-lota portfolio}
+    
       LOTA_DOMAIN: ${LOTA_DOMAIN:-lota.bowang.tech}
       LOTA_ALIASES: ${LOTA_ALIASES:-}
       LOTA_UPSTREAM: ${LOTA_UPSTREAM:-lota-web:8080}
+    
+      PORTFOLIO_DOMAIN: ${PORTFOLIO_DOMAIN:-portfolio.bowang.tech}
+      PORTFOLIO_ALIASES: ${PORTFOLIO_ALIASES:-}
+      PORTFOLIO_UPSTREAM: ${PORTFOLIO_UPSTREAM:-portfolio-app:8081}
     volumes:
       - certbot_www:/var/www/certbot
       - certbot_certs:/etc/letsencrypt
