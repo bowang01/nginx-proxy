@@ -35,7 +35,7 @@ render_sites() {
         if [ -n "$api_upstream" ]; then
             API_LOCATION=$(cat <<EOF
 location /api/ {
-    proxy_pass http://${api_upstream};
+    proxy_pass http://${api_upstream}/;
     proxy_http_version 1.1;
     proxy_set_header Host \$host;
     proxy_set_header X-Real-IP \$remote_addr;
