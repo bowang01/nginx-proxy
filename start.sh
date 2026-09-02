@@ -21,6 +21,7 @@ render_sites() {
         domain=$(site_value "$site" DOMAIN)
         aliases=$(site_value "$site" ALIASES)
         upstream=$(site_value "$site" UPSTREAM)
+        api_upstream=$(site_value "$site" API_UPSTREAM)
 
         if [ -z "$domain" ] || [ -z "$upstream" ]; then
             echo "Skip site ${site}: DOMAIN or UPSTREAM is empty."
@@ -30,13 +31,14 @@ render_sites() {
         DOMAIN="$domain"
         DOMAIN_ALIASES="$aliases"
         UPSTREAM="$upstream"
+        API_UPSTREAM="$api_upstream"
         export DOMAIN DOMAIN_ALIASES UPSTREAM
 
         if [ -f "/etc/letsencrypt/live/${domain}/fullchain.pem" ]; then
-            envsubst '${DOMAIN} ${DOMAIN_ALIASES} ${UPSTREAM}' \
+            envsubst '${DOMAIN} ${DOMAIN_ALIASES} ${UPSTREAM} ${API_UPSTREAM}' \
                 < /etc/nginx/tpl/ssl.conf.template > /etc/nginx/conf.d/${site}.conf
         else
-            envsubst '${DOMAIN} ${DOMAIN_ALIASES} ${UPSTREAM}' \
+            envsubst '${DOMAIN} ${DOMAIN_ALIASES} ${UPSTREAM} ${API_UPSTREAM}' \
                 < /etc/nginx/tpl/http.conf.template > /etc/nginx/conf.d/${site}.conf
         fi
     done
