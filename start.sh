@@ -32,7 +32,7 @@ render_sites() {
         DOMAIN_ALIASES="$aliases"
         UPSTREAM="$upstream"
         API_UPSTREAM="$api_upstream"
-        export DOMAIN DOMAIN_ALIASES UPSTREAM
+        export DOMAIN DOMAIN_ALIASES UPSTREAM API_UPSTREAM
 
         if [ -f "/etc/letsencrypt/live/${domain}/fullchain.pem" ]; then
             envsubst '${DOMAIN} ${DOMAIN_ALIASES} ${UPSTREAM} ${API_UPSTREAM}' \
