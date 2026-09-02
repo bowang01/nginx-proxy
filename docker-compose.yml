@@ -21,6 +21,7 @@ services:
       ANIMAL_DOMAIN: ${ANIMAL_DOMAIN:-animal.bowang.tech}
       ANIMAL_ALIASES: ${ANIMAL_ALIASES:-}
       ANIMAL_UPSTREAM: ${ANIMAL_UPSTREAM:-animal-front:18080}
+      ANIMAL_API_UPSTREAM: ${ANIMAL_API_UPSTREAM:-animal-server:9090}
     volumes:
       - certbot_www:/var/www/certbot
       - certbot_certs:/etc/letsencrypt
