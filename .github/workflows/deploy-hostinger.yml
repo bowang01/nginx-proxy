@@ -20,10 +20,13 @@ jobs:
           docker-compose-path: docker-compose.yml
           environment-variables: |
             ACME_EMAIL=${{ secrets.ACME_EMAIL }}
-            SITES=portfolio lota
+            SITES=portfolio lota animal
             PORTFOLIO_DOMAIN=${{ vars.PORTFOLIO_DOMAIN || 'portfolio.bowang.tech' }}
             PORTFOLIO_ALIASES=${{ vars.PORTFOLIO_ALIASES }}
             PORTFOLIO_UPSTREAM=portfolio-app-1:8081
             
             LOTA_DOMAIN=lota.bowang.tech
             LOTA_UPSTREAM=lota-web:8080
+            
+            ANIMAL_DOMAIN=animal.bowang.tech
+            ANIMAL_UPSTREAM=animal-front:18080
