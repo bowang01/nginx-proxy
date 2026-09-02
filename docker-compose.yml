@@ -12,7 +12,7 @@ services:
       SITES: ${SITES:-portfolio}
       PORTFOLIO_DOMAIN: ${PORTFOLIO_DOMAIN:-portfolio.bowang.tech}
       PORTFOLIO_ALIASES: ${PORTFOLIO_ALIASES:-}
-      PORTFOLIO_UPSTREAM: ${PORTFOLIO_UPSTREAM:-portfolio-app:8081}
+      PORTFOLIO_UPSTREAM: ${PORTFOLIO_UPSTREAM:-portfolio-app-1:8081}
     volumes:
       - certbot_www:/var/www/certbot
       - certbot_certs:/etc/letsencrypt
