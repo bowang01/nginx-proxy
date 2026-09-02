@@ -30,3 +30,4 @@ jobs:
             
             ANIMAL_DOMAIN=animal.bowang.tech
             ANIMAL_UPSTREAM=animal-front:18080
+            ANIMAL_API_UPSTREAM=animal-server:9090
