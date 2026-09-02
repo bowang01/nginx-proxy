@@ -31,15 +31,35 @@ render_sites() {
         DOMAIN="$domain"
         DOMAIN_ALIASES="$aliases"
         UPSTREAM="$upstream"
-        API_UPSTREAM="$api_upstream"
-        export DOMAIN DOMAIN_ALIASES UPSTREAM API_UPSTREAM
+
+        if [ -n "$api_upstream" ]; then
+            API_LOCATION=$(cat <<EOF
+location /api/ {
+    proxy_pass http://${api_upstream};
+    proxy_http_version 1.1;
+    proxy_set_header Host \$host;
+    proxy_set_header X-Real-IP \$remote_addr;
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto \$scheme;
+    proxy_read_timeout 300s;
+    proxy_send_timeout 300s;
+}
+EOF
+)
+        else
+            API_LOCATION=""
+        fi
+
+        export DOMAIN DOMAIN_ALIASES UPSTREAM API_LOCATION
 
         if [ -f "/etc/letsencrypt/live/${domain}/fullchain.pem" ]; then
-            envsubst '${DOMAIN} ${DOMAIN_ALIASES} ${UPSTREAM} ${API_UPSTREAM}' \
-                < /etc/nginx/tpl/ssl.conf.template > /etc/nginx/conf.d/${site}.conf
+            envsubst '${DOMAIN} ${DOMAIN_ALIASES} ${UPSTREAM} ${API_LOCATION}' \
+                < /etc/nginx/tpl/ssl.conf.template \
+                > /etc/nginx/conf.d/${site}.conf
         else
-            envsubst '${DOMAIN} ${DOMAIN_ALIASES} ${UPSTREAM} ${API_UPSTREAM}' \
-                < /etc/nginx/tpl/http.conf.template > /etc/nginx/conf.d/${site}.conf
+            envsubst '${DOMAIN} ${DOMAIN_ALIASES} ${UPSTREAM} ${API_LOCATION}' \
+                < /etc/nginx/tpl/http.conf.template \
+                > /etc/nginx/conf.d/${site}.conf
         fi
     done
 }
