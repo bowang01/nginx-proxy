@@ -23,4 +23,4 @@ jobs:
             SITES=portfolio
             PORTFOLIO_DOMAIN=${{ vars.PORTFOLIO_DOMAIN || 'portfolio.bowang.tech' }}
             PORTFOLIO_ALIASES=${{ vars.PORTFOLIO_ALIASES }}
-            PORTFOLIO_UPSTREAM=pportfolio-app-1:8081
+            PORTFOLIO_UPSTREAM=portfolio-app-1:8081
