@@ -34,4 +34,4 @@ jobs:
 
             HOSPITAL_DOMAIN=hospital.bowang.tech
             HOSPITAL_UPSTREAM=hospital-front:8082
-            HOSPITAL_API_UPSTREAM=hospital-server:9092
+            HOSPITAL_API_UPSTREAM=hospitalapi:9092
