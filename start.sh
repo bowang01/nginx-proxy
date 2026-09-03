@@ -22,6 +22,7 @@ render_sites() {
         aliases=$(site_value "$site" ALIASES)
         upstream=$(site_value "$site" UPSTREAM)
         api_upstream=$(site_value "$site" API_UPSTREAM)
+        api_path=$(site_value "$site" API_PATH)
 
         if [ -z "$domain" ] || [ -z "$upstream" ]; then
             echo "Skip site ${site}: DOMAIN or UPSTREAM is empty."
@@ -33,8 +34,13 @@ render_sites() {
         UPSTREAM="$upstream"
 
         if [ -n "$api_upstream" ]; then
+            # Default API path is /api/
+            if [ -z "$api_path" ]; then
+                api_path="api"
+            fi
+
             API_LOCATION=$(cat <<EOF
-location /api/ {
+location /${api_path}/ {
     proxy_pass http://${api_upstream}/;
     proxy_http_version 1.1;
     proxy_set_header Host \$host;
@@ -84,6 +90,7 @@ request_certs() {
 
             echo "Running certbot for ${domain} ${aliases}..."
             CERTBOT_DOMAINS="-d ${domain}"
+
             for extra in ${aliases}; do
                 CERTBOT_DOMAINS="${CERTBOT_DOMAINS} -d ${extra}"
             done
@@ -103,6 +110,7 @@ request_certs() {
                 echo "certbot failed for ${domain}."
             fi
         done
+
         sleep 12h
     done
 }
