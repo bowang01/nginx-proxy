@@ -26,7 +26,7 @@ services:
       HOSPITAL_DOMAIN: ${HOSPITAL_DOMAIN:-hospital.bowang.tech}
       HOSPITAL_ALIASES: ${HOSPITAL_ALIASES:-}
       HOSPITAL_UPSTREAM: ${HOSPITAL_UPSTREAM:-hospital-front:8082}
-      HOSPITAL_API_UPSTREAM: ${HOSPITAL_API_UPSTREAM:-hospital-server:9092}
+      HOSPITAL_API_UPSTREAM: ${HOSPITAL_API_UPSTREAM:-hospitalapi:9092}
     volumes:
       - certbot_www:/var/www/certbot
       - certbot_certs:/etc/letsencrypt
