@@ -9,3 +9,4 @@ step3:
   if not new domain then : docker network connect proxy xxx
   then check again : docker network inspect proxy
   then restart procy: docker restart global-nginx
+<img width="1119" height="871" alt="docker-nginx 执行顺序" src="https://github.com/user-attachments/assets/f2b1e0f6-25ce-4dc4-8f27-13fb76fd083c" />
