@@ -20,7 +20,7 @@ jobs:
           docker-compose-path: docker-compose.yml
           environment-variables: |
             ACME_EMAIL=${{ secrets.ACME_EMAIL }}
-            SITES=portfolio lota animal hospital
+            SITES=portfolio lota animal hospital jobtrack
             PORTFOLIO_DOMAIN=${{ vars.PORTFOLIO_DOMAIN || 'portfolio.bowang.tech' }}
             PORTFOLIO_ALIASES=${{ vars.PORTFOLIO_ALIASES }}
             PORTFOLIO_UPSTREAM=portfolio-app-1:8081
@@ -35,3 +35,6 @@ jobs:
             HOSPITAL_DOMAIN=hospital.bowang.tech
             HOSPITAL_UPSTREAM=hospital-front:8082
             HOSPITAL_API_UPSTREAM=hospitalapi:9092
+
+            JOBTRACK_DOMAIN=jobtrack.bowang.tech
+            JOBTRACK_UPSTREAM=jobtrack-jobtrack-app-1:5566
